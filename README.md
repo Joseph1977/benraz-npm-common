@@ -1,2 +1,2 @@
-# benraz-npm-common-
+# benraz-npm-common
 Common frontend package
