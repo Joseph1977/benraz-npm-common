@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 export class CustomValidators {
   private static readonly atLeastOneCharacterRegex = '.*\\S+.*';
@@ -22,7 +22,7 @@ export class CustomValidators {
   }
 
   static greaterThanDatesValidator(startControlName: string, endControlName: string, errorMessage: string): ValidatorFn {
-    const validation = (group: FormGroup): ValidationErrors => {
+    const validation = (group: UntypedFormGroup): ValidationErrors => {
       const startControl = group.controls[startControlName];
       const endControl = group.controls[endControlName];
 

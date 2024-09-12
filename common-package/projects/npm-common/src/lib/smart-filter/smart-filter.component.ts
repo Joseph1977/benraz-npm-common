@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
@@ -204,10 +204,10 @@ export class SmartFilterComponent {
 
   smartFilterParameterType = SmartFilterParameterType;
 
-  parameterControl = new FormControl();
-  parameterValuesControl = new FormControl();
-  parameterFromControl = new FormControl();
-  parameterToControl = new FormControl();
+  parameterControl = new UntypedFormControl();
+  parameterValuesControl = new UntypedFormControl();
+  parameterFromControl = new UntypedFormControl();
+  parameterToControl = new UntypedFormControl();
 
   availableParameters: Observable<SmartFilterParameter[]>;
   currentParameter: SmartFilterParameter;
