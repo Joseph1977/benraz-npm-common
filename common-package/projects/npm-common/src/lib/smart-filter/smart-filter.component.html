@@ -1,0 +1,100 @@
+<div class="smart-filter">
+  <!-- Parameter selector -->
+  <mat-form-field style="width: 100%;" class="example-chip-list">
+    <mat-label>Filter</mat-label>
+    <mat-chip-list #parametersChipList="matChipList" aria-label="Filter">
+      <mat-chip *ngFor="let parameter of selectedParameters" [selectable]="true" [removable]="true"
+        (removed)="onParameterRemove(parameter)">
+        {{ formatParameterString(parameter) }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <input [placeholder]="(availableParameters | async).length > 0 ? '+ Add a filter' : ''" (keypress)="disableTyping($event)" class="hide-cursor"
+        #parameterInput="matChipInput" [formControl]="parameterControl" [matAutocomplete]="autocomplete"
+        [matChipInputFor]="parametersChipList" *ngIf="!currentParameter" />
+    </mat-chip-list>
+
+    <button mat-flat-button style="float: left;" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></button>
+
+    <mat-autocomplete #autocomplete="matAutocomplete" (optionSelected)="onParameterOptionSelect($event)">
+      <mat-option *ngFor="let parameter of availableParameters | async" [value]="getParameterId(parameter)">
+        {{ parameter.name }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <!-- Search icon -->
+    <button matPrefix mat-button mat-icon-button class="search">
+      <mat-icon>search</mat-icon>
+    </button>
+    <!-- Clear -->
+    <button matSuffix mat-button mat-icon-button class="clear text-danger" aria-label="Clear" *ngIf="canClear"
+      (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- Mode -->
+    <mat-hint align="end">
+      Mode:
+      <a class="clickable" (click)="changeMode()">{{ !filter.any ? 'AND' : 'OR' }}</a>
+    </mat-hint>
+  </mat-form-field>
+
+  <!-- Parameter value input -->
+  <mat-menu #menu="matMenu" (closed)="onMenuClose()">
+    <div class="container" (click)="$event.stopPropagation()">
+      <div class="row">
+        <h3 class="col-12 title">{{ currentParameter?.name }}</h3>
+
+        <mat-form-field class="col-12" *ngIf="currentParameter?.type === smartFilterParameterType.text">
+          <input matInput [placeholder]="currentParameter?.operator || 'Contains'"
+            [formControl]="parameterValuesControl" (keyup.enter)="onParameterAdd()" libCustomAutofocus />
+        </mat-form-field>
+
+        <mat-selection-list class="col-12" *ngIf="currentParameter?.type === smartFilterParameterType.select"
+          color="primary" [formControl]="parameterValuesControl">
+          <mat-list-option *ngFor="let value of currentParameter.availableValues;" [value]="value.key">
+            {{ value.name }}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <mat-selection-list class="col-12" *ngIf="currentParameter?.type === smartFilterParameterType.selectOne" [multiple]="false"
+          color="primary" [formControl]="parameterValuesControl">
+          <mat-list-option *ngFor="let value of currentParameter.availableValues;" [value]="value.key">
+            {{ value.name }}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <div class="col-12" *ngIf="currentParameter?.type === smartFilterParameterType.boolean">
+          <mat-checkbox color="primary" [formControl]="parameterValuesControl">
+            Yes/No
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field class="col-12" *ngIf="currentParameter?.type === smartFilterParameterType.date">
+          <input matInput [matDatepicker]="datepicker" placeholder="Date" [formControl]="parameterValuesControl">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+
+        <form *ngIf="currentParameter?.type === smartFilterParameterType.dateRange">
+          <mat-form-field class="col-6">
+            <input matInput [matDatepicker]="fromDatepicker" placeholder="From" [formControl]="parameterFromControl">
+            <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatepicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="col-6">
+            <input matInput [matDatepicker]="toDatepicker" placeholder="To" [formControl]="parameterToControl">
+            <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #toDatepicker></mat-datepicker>
+          </mat-form-field>
+        </form>
+
+        <div class="col-12 mat-card-actions-inner">
+          <span flex class="spacer"></span>
+          <button mat-flat-button (click)="onParameterAdd()">Apply</button>
+        </div>
+      </div>
+    </div>
+  </mat-menu>
+</div>

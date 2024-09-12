@@ -1,0 +1,27 @@
+.title {
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+button.clear {
+  font-size: 20px !important;
+}
+
+button.search {
+  font-size: 20px !important;
+  pointer-events: none;
+}
+
+.hide-cursor {
+  caret-color: transparent;
+}
+
+.clickable {
+  cursor: pointer;
+  color: #0070ba;
+  text-decoration: underline;
+}
+
+.clickable:hover {
+  color: #0070ba;
+}
