@@ -1,0 +1,24 @@
+{
+  "name": "@josephbenraz/npm-common",
+  "version": "1.0.0",
+  "description": "Commom stuff",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joseph1977/benraz-infra-angular.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "refreshVSToken": "vsts-npm-auth -config .npmrc",
+    "build": "ng build npm-common"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "~12.2.15",
+    "@angular/core": "~12.2.15",
+    "@angular/material": "^12.2.13"
+  }
+}
