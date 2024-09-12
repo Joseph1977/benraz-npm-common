@@ -29,8 +29,9 @@ import { ConfirmationService } from './confirmation/confirmation.service';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SmartFilterComponent } from './smart-filter/smart-filter.component';
 import { LoaderComponent } from './loader/loader.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-export class BenrazNgxCommonModuleConfig {
+export class BenrazNpmCommonModuleConfig {
   apiBaseUrl: string;
   authorizationUrl: string;
   companySubdomain: string;
@@ -38,6 +39,7 @@ export class BenrazNgxCommonModuleConfig {
 }
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     RouterModule,
@@ -85,10 +87,10 @@ export class BenrazNgxCommonModuleConfig {
     LoaderComponent
   ]
 })
-export class BenrazNgxCommonModule {
-  static forRoot(config: BenrazNgxCommonModuleConfig): ModuleWithProviders<BenrazNgxCommonModule> {
+export class BenrazNpmCommonModule {
+  static forRoot(config: BenrazNpmCommonModuleConfig): ModuleWithProviders<BenrazNpmCommonModule> {
     return {
-      ngModule: BenrazNgxCommonModule,
+      ngModule: BenrazNpmCommonModule,
       providers: [
         EnvironmentsService,
         {
