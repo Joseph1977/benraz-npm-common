@@ -2,9 +2,9 @@ import { Inject, Component, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class DialogData {
-  message: string;
-  titleMessage: string;
-  notificationType: NotificationDialogType;
+  message: string | undefined;
+  titleMessage: string | undefined;
+  notificationType: NotificationDialogType | undefined;
 }
 
 export enum NotificationDialogType {
@@ -19,7 +19,7 @@ export enum NotificationDialogType {
   styleUrls: ['./notification-dialog.component.scss']
 })
 export class NotificationDialogComponent implements OnInit {
-  title: string;
+  title: string | undefined;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
