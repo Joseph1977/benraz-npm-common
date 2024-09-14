@@ -2,9 +2,9 @@ import { HttpParams } from "@angular/common/http";
 import { Params } from "@angular/router";
 
 export class UrlBuilder {
-  baseUrl: string;
-  urlSegments: string[];
-  queryParams;
+  private baseUrl: string | undefined;
+  private urlSegments: string[];
+  private queryParams: Record<string, string>;
 
   constructor() {
     this.urlSegments = [];
@@ -48,7 +48,7 @@ export class UrlBuilder {
   toString(): string {
     let url = this.baseUrl;
     if (!url) {
-      return null;
+      return '';
     }
 
     const urlSegment = this.urlSegments.join('/');

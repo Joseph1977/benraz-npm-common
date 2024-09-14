@@ -6,8 +6,8 @@ import { Params } from '@angular/router';
 })
 export class QueryService {
 
-  getQueryFromUrl(): any {
-    const query = {};
+  getQueryFromUrl(): Record<string, string> {
+    const query: Record<string, string> = {};
 
     const params = new URLSearchParams(window.location.search);
     params.forEach((value, key) => query[key] = value);
@@ -16,7 +16,6 @@ export class QueryService {
   }
 
   applyQueryToUrl(query: any) {
-    let test: Params = null;
     const params = new URLSearchParams();
 
     Object.keys(query).forEach((key) => {
