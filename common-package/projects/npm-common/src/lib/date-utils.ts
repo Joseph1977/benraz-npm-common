@@ -47,18 +47,18 @@ export class DateUtils {
     return offset;
   }
 
-  static toIsoDateString(date) {
-    if (this.isIsoDate(date)) {
+  static toIsoDateString(date: string | Date): string {
+    if (typeof date === 'string' && this.isIsoDate(date)) {
       return date;
     }
-    date = new Date(date);
-    date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-    
-    const dateString = date.toISOString() as string;
+    let dateObj = date instanceof Date ? date : new Date(date);
+    dateObj = new Date(dateObj.getTime() - (dateObj.getTimezoneOffset() * 60000));
+
+    const dateString = dateObj.toISOString() as string;
     return dateString.substring(0, 10);
   }
 
-  private static isIsoDate(date) {
+  private static isIsoDate(date: string): boolean {
     return /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(date);
   }
 }

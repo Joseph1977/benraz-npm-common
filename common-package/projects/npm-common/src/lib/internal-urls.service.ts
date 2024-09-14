@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { EnvironmentsService } from './environments.service';
 
 export class InternalUrlsServiceConfig {
-  apiBaseUrl: string;
-  authorizationUrl: string;
+  apiBaseUrl: string | undefined;
+  authorizationUrl: string | undefined;
   autoDetermineInternalUrls?: boolean;
 }
 
@@ -22,11 +22,11 @@ export class InternalUrlsService {
   }
 
   public getApiBaseUrl(): string {
-    return this.getUrl(this.config.apiBaseUrl, true);
+    return this.getUrl(this.config.apiBaseUrl ?? '', true);
   }
 
   public getAuthorizationUrl(): string {
-    return this.getUrl(this.config.authorizationUrl, false);
+    return this.getUrl(this.config.authorizationUrl ?? '', false);
   }
 
   public getCustomUrl(initialUrl: string): string {

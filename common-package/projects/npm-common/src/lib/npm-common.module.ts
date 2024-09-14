@@ -1,6 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,18 +28,18 @@ import { ConfirmationService } from './confirmation/confirmation.service';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SmartFilterComponent } from './smart-filter/smart-filter.component';
 import { LoaderComponent } from './loader/loader.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 export class BenrazNgxCommonModuleConfig {
-  apiBaseUrl: string;
-  authorizationUrl: string;
-  companySubdomain: string;
+  apiBaseUrl: string | undefined;
+  authorizationUrl: string | undefined;
+  companySubdomain: string | undefined;
   autoDetermineInternalUrls?: boolean;
 }
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,

@@ -17,28 +17,27 @@ export class CustomValidators {
     return validation;
   }
 
-  static notEmptyOrWhitespace(control: AbstractControl): ValidationErrors {
+  static notEmptyOrWhitespace(control: AbstractControl): ValidationErrors | null {
     return Validators.pattern(CustomValidators.atLeastOneCharacterRegex)(control);
   }
-
   static greaterThanDatesValidator(startControlName: string, endControlName: string, errorMessage: string): ValidatorFn {
-    const validation = (group: FormGroup): ValidationErrors => {
-      const startControl = group.controls[startControlName];
-      const endControl = group.controls[endControlName];
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!(control instanceof FormGroup)) {
+        return null;
+      }
+      const group = control as FormGroup;
+      const startControl = group.get(startControlName);
+      const endControl = group.get(endControlName);
 
-      if (!startControl.value || !endControl.value) {
+      if (!startControl?.value || !endControl?.value) {
         return null;
       }
 
       if (new Date(endControl.value) <= new Date(startControl.value)) {
-        endControl.setErrors({ minValue: errorMessage });
-      } else {
-        endControl.setErrors(null);
+        return { minValue: errorMessage };
       }
 
-      return;
+      return null;
     };
-
-    return validation;
   }
 }

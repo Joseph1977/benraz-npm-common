@@ -7,7 +7,7 @@ import { GoogleMapsAddress } from './google-maps.model';
 export class GoogleMapsService {
   constructor() { }
 
-  getAddress(autocompleteResult: any): GoogleMapsAddress {
+  getAddress(autocompleteResult: any): GoogleMapsAddress | null {
     if (!autocompleteResult?.address_components) {
       return null;
     }
@@ -27,12 +27,12 @@ export class GoogleMapsService {
     return adress;
   }
 
-  private extractAddressComponentValue(placeResult, type: string): string {
-    if (!placeResult?.address_components) {
-      return null;
+  private extractAddressComponentValue(placeResult: any, type: string): string {
+    if (!placeResult || !placeResult.address_components) {
+      return '';
     }
 
-    const component = placeResult.address_components.find(x => x.types.some(y => y === type));
-    return component?.short_name;
+    const component = placeResult.address_components.find((x: any) => x.types.some((y: string) => y === type));
+    return component ? component.long_name : '';
   }
 }

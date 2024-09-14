@@ -4,7 +4,7 @@ import { QueryConfig, QueryParameterType } from './query.model';
 
 // @dynamic
 export class QueryUtils {
-  static toUrlQuery(query, config?: QueryConfig) {
+  static toUrlQuery(query: any, config?: QueryConfig) {
     query = { ...query };
     config = { ...config };
 
@@ -14,7 +14,7 @@ export class QueryUtils {
         return;
       }
 
-      const parameterConfig = config[key];
+      const parameterConfig = config?.[key];
       if (parameterConfig?.type === QueryParameterType.date) {
         query[key] = DateUtils.toIsoDateString(query[key]);
       }
@@ -23,12 +23,12 @@ export class QueryUtils {
     return query;
   }
 
-  static fromUrlQuery(query, config?: QueryConfig) {
+  static fromUrlQuery(query: any, config?: QueryConfig) {
     query = { ...query };
     config = { ...config };
 
     this.getQueryKeys(query).forEach(key => {
-      const parameterConfig = config[key];
+      const parameterConfig = config?.[key];
       if (parameterConfig?.type === QueryParameterType.date) {
         query[key] = DateUtils.addUTOffset(new Date(query[key]));
       }
@@ -37,7 +37,7 @@ export class QueryUtils {
     return query;
   }
 
-  static toRequestQuery(query, config?: QueryConfig) {
+  static toRequestQuery(query: any, config?: QueryConfig) {
     query = { ...query };
     config = { ...config };
 
@@ -47,7 +47,7 @@ export class QueryUtils {
         return;
       }
 
-      const parameterConfig = config[key];
+      const parameterConfig = config?.[key];
       if (parameterConfig?.type === QueryParameterType.date) {
         let value = new Date(query[key]);
         value = DateUtils.addDays(value, parameterConfig.addDay || 0);
@@ -93,7 +93,7 @@ export class QueryUtils {
     }
   }
 
-  private static getQueryKeys(query): string[] {
+  private static getQueryKeys(query: any): string[] {
     return Object.keys(query);
   }
 }
