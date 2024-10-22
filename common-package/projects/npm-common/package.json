@@ -1,6 +1,6 @@
 {
   "name": "@josephbenraz/npm-common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common stuff",
   "repository": {
     "type": "git",
@@ -14,14 +14,14 @@
     "build": "ng build npm-common"
   },
   "dependencies": {
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.1"
   },
   "peerDependencies": {
-    "@angular/common": "16.2.12",
-    "@angular/core": "16.2.12",
-    "@angular/material": "16.2.12",
-    "@angular/animations": "16.2.12",
-    "@angular/forms": "16.2.12",
-    "@angular/platform-browser": "16.2.12"
+    "@angular/common": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/material": "^17.3.10",
+    "@angular/animations": "^17.3.12",
+    "@angular/forms": "^17.3.12",
+    "@angular/platform-browser": "^17.3.12"
   }
 }
