@@ -1,6 +1,6 @@
 {
   "name": "npm-common",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -37,7 +37,7 @@
     "@angular/language-service": "^18.2.8",
     "@types/jasmine": "^5.1.4",
     "@types/node": "^22.7.8",
-    "@josephbenraz/npm-common": "file:dist/npm-common/josephbenraz-npm-common-1.0.2.tgz",
+    "@josephbenraz/npm-common": "^1.0.3",
     "jasmine-core": "^5.4.0",
     "karma": "^6.4.4",
     "karma-chrome-launcher": "~3.2.0",
