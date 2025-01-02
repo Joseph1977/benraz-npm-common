@@ -2,20 +2,23 @@
   <!-- Parameter selector -->
   <mat-form-field style="width: 100%;" class="example-chip-list">
     <mat-label>Filter</mat-label>
-    <mat-label>Filter</mat-label>
     <mat-chip-grid #parametersChipGrid>
       <mat-chip-row *ngFor="let parameter of selectedParameters"
                     [removable]="true"
                     (removed)="onParameterRemove(parameter)">
-        {{parameter}}
+        {{formatParameterString(parameter)}}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
-    </mat-chip-grid>
+      <input [placeholder]="(availableParameters | async)?.length ?? 0 > 0 ? '+ Add a filter' : ''" class="hide-cursor"
+      [ngClass]="{ 'show-placeholder': selectedParameters.length > 0 }"  
+      #parameterInput="matChipInput" [formControl]="parameterControl" [matAutocomplete]="autocomplete"
+        [matChipInputFor]="parametersChipGrid" *ngIf="!currentParameter" />
+    </mat-chip-grid> 
 
-    <button mat-flat-button style="float: left;" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></button>
-
+    <button mat-flat-button style="float: left;visibility: hidden;height: 0;width: 0;" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></button>
+    
     <mat-autocomplete #autocomplete="matAutocomplete" (optionSelected)="onParameterOptionSelect($event)">
       <mat-option *ngFor="let parameter of availableParameters | async" [value]="getParameterId(parameter)">
         {{ parameter.name }}
@@ -23,11 +26,11 @@
     </mat-autocomplete>
 
     <!-- Search icon -->
-    <button matPrefix mat-button mat-icon-button class="search">
+    <button matPrefix mat-icon-button class="search">
       <mat-icon>search</mat-icon>
     </button>
     <!-- Clear -->
-    <button matSuffix mat-button mat-icon-button class="clear text-danger" aria-label="Clear" *ngIf="canClear"
+    <button matSuffix mat-icon-button class="clear text-danger" aria-label="Clear" *ngIf="canClear"
       (click)="clear()">
       <mat-icon>close</mat-icon>
     </button>

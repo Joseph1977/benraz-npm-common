@@ -1,0 +1,25 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <a class="nav-link" href="/">
+      <img src="./assets/images/benraz-logo.png" height="30" class="d-inline-block align-top" alt="benraz-logo">
+    </a>
+
+    <span flex class="spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="main-menu">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/common">
+        <mat-icon></mat-icon>
+        <span>Common</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <br />
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
