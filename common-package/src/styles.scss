@@ -23,7 +23,7 @@ body {
 }
 
 /* Dialog */
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   font-size: 14px;
   margin-top: 12px;
   margin-bottom: 12px;
@@ -59,13 +59,13 @@ a:hover {
 }
 
 /* Buttons */
-.mat-raised-button.primary {
+.mat-mdc-raised-button.primary {
   background-color: mat.m2-get-color-from-palette($app-primary, 900);
   color: #fff;
   border-radius: 30px;
 }
 
-.mat-raised-button.primary:hover {
+.mat-mdc-raised-button.primary:hover {
   background-color: mat.m2-get-color-from-palette($app-primary, 600);
 }
 
@@ -152,22 +152,22 @@ a:hover {
   display: flex;
 }
 
-.mat-dialog-actions {
+.mat-mdc-dialog-actions {
   margin-bottom: -12px !important;
 }
 
-.mat-card-actions button,
-.mat-dialog-actions button {
+.mat-mdc-card-actions button,
+.mat-mdc-dialog-actions button {
   margin-left: 8px;
 }
 
-.mat-card-actions button:first-child,
-.mat-dialog-actions button:first-child {
+.mat-mdc-card-actions button:first-child,
+.mat-mdc-dialog-actions button:first-child {
   margin-left: 0px;
 }
 
 /* Cards */
-.mat-card {
+.mat-mdc-card {
   margin-bottom: 24px;
 }
 
@@ -179,9 +179,9 @@ h4,
 .h2,
 .h3,
 .h4,
-.mat-card-title-group,
-.mat-card-title,
-.mat-card-subtitle {
+.mat-mdc-card-title-group,
+.mat-mdc-card-title,
+.mat-mdc-card-subtitle {
   color: mat.m2-get-color-from-palette($app-primary, 700);
 }
 
@@ -197,20 +197,20 @@ h4, .h4 {
   font-size: 14px;
 }
 
-.mat-card-title {
+.mat-mdc-card-title {
   font-size: 20px;
 }
 
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   font-size: 18px;
 }
 
-.mat-card-title-group .mat-icon-button {
+.mat-mdc-card-title-group .mat-icon-button {
   margin-top: -10px;
   margin-right: -10px;
 }
 
-.fixed-height .mat-card-content {
+.fixed-height .mat-mdc-card-content {
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -250,13 +250,15 @@ td.mat-cell.clickable:hover a {
 }
 
 /* Chips */
-.mat-chip.mat-standard-chip {
-  background-color: mat.m2-get-color-from-palette($app-primary, 700) !important;
-  color: rgb(255, 255, 255) !important;
+.mat-mdc-chip.mat-mdc-standard-chip {
+  background-color: mat.m2-get-color-from-palette($app-primary, 400) !important;
 
-  .mat-chip-remove {
-    color: rgba(255, 255, 255, 0.87);
-    opacity: 0.4;
+  .mat-mdc-chip-action-label{
+  color: rgb(255, 255, 255) !important;
+  }
+  .mat-mdc-chip-remove {
+    color: rgba(255, 255, 255, 0.87) !important;
+    opacity: 1;
   }
 }
 

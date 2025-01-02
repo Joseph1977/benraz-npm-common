@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run build:npm-common",
+    "build": "ng build",
     "build:npm-common": "ng build npm-common",
     "publish:npm-common": "cd dist/npm-common && npm publish --access public",
     "test": "ng test",

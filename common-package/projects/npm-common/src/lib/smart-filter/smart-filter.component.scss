@@ -13,7 +13,7 @@ button.search {
 }
 
 .hide-cursor {
-  caret-color: transparent;
+  caret-color: transparent !important;
 }
 
 .clickable {
@@ -24,4 +24,19 @@ button.search {
 
 .clickable:hover {
   color: #0070ba;
+}
+
+.example-chip-list{
+  .mat-mdc-chip-grid {
+    input {
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+  }
+  .show-placeholder {
+    &::placeholder {
+            opacity: 0.7 !important;
+          }
+  }
 }

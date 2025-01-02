@@ -81,7 +81,6 @@ export class NgxCommonDemoComponent implements OnInit {
 
   private reload() {
     console.log('reload');
-    debugger
     const query = this.getQueryFromControls();
 
     this.querySharedService.applyQueryToUrl(query);
