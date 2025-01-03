@@ -1,32 +1,27 @@
-.title {
-  margin-top: 6px;
-  margin-bottom: 12px;
-}
+.smart-filter{
+  button.clear {
+    font-size: 20px !important;
+  }
+  
+  button.search {
+    font-size: 20px !important;
+    pointer-events: none;
+  }
 
-button.clear {
-  font-size: 20px !important;
-}
+  .hide-cursor {
+    caret-color: transparent !important;
+  }
+  
+  .clickable {
+    cursor: pointer;
+    color: #0070ba;
+    text-decoration: underline;
+  }
+  
+  .clickable:hover {
+    color: #0070ba;
+  }
 
-button.search {
-  font-size: 20px !important;
-  pointer-events: none;
-}
-
-.hide-cursor {
-  caret-color: transparent !important;
-}
-
-.clickable {
-  cursor: pointer;
-  color: #0070ba;
-  text-decoration: underline;
-}
-
-.clickable:hover {
-  color: #0070ba;
-}
-
-.example-chip-list{
   .mat-mdc-chip-grid {
     input {
       &::placeholder {
@@ -34,9 +29,47 @@ button.search {
       }
     }
   }
+
   .show-placeholder {
     &::placeholder {
-            opacity: 0.7 !important;
-          }
+      opacity: 0.5 !important;
+    }
+  }
+
+  .menu-trigger-button{
+    float: left;
+    visibility: hidden;
+    height:0;
+    width:0;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .mat-chip-grid-input-wrapper{
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .top-24{
+    top:24px
+  }
+}
+
+.smart-filter-container{
+  padding-left: 12px;
+  padding-right: 12px;
+
+  .title {
+    margin-top: 6px;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+
+  .mat-card-actions-inner{
+      display: flex;
+    .spacer{
+      flex: 1 1 auto !important;
+    }
   }
 }
