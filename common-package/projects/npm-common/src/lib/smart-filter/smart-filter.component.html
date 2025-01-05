@@ -2,22 +2,25 @@
   <!-- Parameter selector -->
   <mat-form-field style="width: 100%;" class="example-chip-list">
     <mat-label>Filter</mat-label>
-    <mat-chip-grid #parametersChipGrid>
+<mat-chip-grid #parametersChipGrid>
       <mat-chip-row *ngFor="let parameter of selectedParameters"
                     [removable]="true"
                     (removed)="onParameterRemove(parameter)">
-        {{formatParameterString(parameter)}}
+                    {{formatParameterString(parameter)}}
         <button matChipRemove>
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
-      <input [placeholder]="(availableParameters | async)?.length ?? 0 > 0 ? '+ Add a filter' : ''" class="hide-cursor"
-      [ngClass]="{ 'show-placeholder': selectedParameters.length > 0 }"  
-      #parameterInput="matChipInput" [formControl]="parameterControl" [matAutocomplete]="autocomplete"
-        [matChipInputFor]="parametersChipGrid" *ngIf="!currentParameter" />
+      <div class="mat-chip-grid-input-wrapper">
+        <input [placeholder]="(availableParameters | async)?.length ?? 0 > 0 ? '+ Add a filter' : ''" (keypress)="disableTyping($event)" class="hide-cursor" 
+          [ngClass]="{ 'show-placeholder': selectedParameters.length > 0 }"
+          #parameterInput="matChipInput" [formControl]="parameterControl" [matAutocomplete]="autocomplete"
+          [matChipInputFor]="parametersChipGrid" *ngIf="!currentParameter" />
+        
+        <button mat-flat-button class="menu-trigger-button" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"
+        [ngClass]="{ 'top-24': currentParameter &&  selectedParameters.length === 0 }"></button>
+      </div>
     </mat-chip-grid> 
-
-    <button mat-flat-button style="float: left;visibility: hidden;height: 0;width: 0;" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"></button>
     
     <mat-autocomplete #autocomplete="matAutocomplete" (optionSelected)="onParameterOptionSelect($event)">
       <mat-option *ngFor="let parameter of availableParameters | async" [value]="getParameterId(parameter)">
@@ -40,11 +43,11 @@
       Mode:
       <a class="clickable" (click)="changeMode()">{{ !filter.any ? 'AND' : 'OR' }}</a>
     </mat-hint>
-  </mat-form-field>
+   </mat-form-field>
 
   <!-- Parameter value input -->
-  <mat-menu #menu="matMenu" (closed)="onMenuClose()">
-    <div class="container" (click)="$event.stopPropagation()">
+  <mat-menu #menu="matMenu" (closed)="onMenuClose()" yPosition="below">
+    <div class="container smart-filter-container" (click)="$event.stopPropagation()">
       <div class="row">
         <h3 class="col-12 title">{{ currentParameter?.name }}</h3>
 
