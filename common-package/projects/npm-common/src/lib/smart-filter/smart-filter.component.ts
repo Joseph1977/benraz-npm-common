@@ -19,7 +19,7 @@ import { startWith, map } from "rxjs/operators";
 import { CommonUtils } from "../common-utils";
 
 export class SmartFilterObject {
-  parameters: SmartFilterParameter[] | undefined;
+  parameters: SmartFilterParameter[]=[];
   any?: boolean;
 
   static reset(filter: SmartFilterObject, value: any) {
@@ -233,8 +233,8 @@ export class SmartFilterComponent {
   parameterFromControl = new FormControl();
   parameterToControl = new FormControl();
 
-  availableParameters: Observable<SmartFilterParameter[] | undefined | null>;
-  currentParameter: SmartFilterParameter | undefined;
+  availableParameters: Observable<SmartFilterParameter[]>;
+  currentParameter: SmartFilterParameter | null | undefined;
   selectedParameters: SmartFilterParameter[] = [];
 
   constructor(@Inject(LOCALE_ID) private locale: string) {
@@ -321,7 +321,7 @@ export class SmartFilterComponent {
     this.discardParameterControl();
   }
   onMenuClose() {
-    this.currentParameter = undefined;
+    this.currentParameter = null;
     this.parameterValuesControl.setValue(null);
     this.discardParameterControl();
   }
