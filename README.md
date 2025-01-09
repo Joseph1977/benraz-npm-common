@@ -1,12 +1,24 @@
 # benraz-npm-common-
 Common frontend package
 
-# build instruction
+# Run instruction for demo application
 1. npm cache clean --force
 2. npm install --legacy-peer-deps
-3. npm run build
-4. npm run start
+3. npm run start
 
+Notes : The demo application will use the following paths to access the @josephbenraz/npm-common package, as specified in the tsconfig.app.json file:
+  1. projects/npm-common/src/public-api
+  2. dist/npm-common/npm-common
+  3. dist/npm-common
+
+# Build instruction for npm-common package
+1. npm cache clean --force
+2. npm install --legacy-peer-deps
+3. npm run build:npm-common
+
+# Publish instruction for npm-common package
+1. Follow the **npm-common package build steps**
+2. npm run publish:npm-common
 
 # Smart Filter
 
