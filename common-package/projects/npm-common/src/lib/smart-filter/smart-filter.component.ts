@@ -19,7 +19,7 @@ import { startWith, map } from "rxjs/operators";
 import { CommonUtils } from "../common-utils";
 
 export class SmartFilterObject {
-  parameters: SmartFilterParameter[]=[];
+  parameters: SmartFilterParameter[] = [];
   any?: boolean;
 
   static reset(filter: SmartFilterObject, value: any) {
@@ -85,6 +85,7 @@ export class SmartFilterParameter {
   keys: string[] | undefined;
   values?: any[];
   operator?: string;
+  isVisible?: boolean;
   availableValues?: SmartFilterSelectItem[];
 
   static hasValue(parameter: SmartFilterParameter): boolean {
@@ -375,7 +376,7 @@ export class SmartFilterComponent {
     text: string | null
   ): SmartFilterParameter[] {
     const filteredParameters = parameters.filter(
-      (x) => !SmartFilterParameter.hasValue(x)
+      (x) => !SmartFilterParameter.hasValue(x) && x.isVisible !== false
     );
 
     if (!text) {
