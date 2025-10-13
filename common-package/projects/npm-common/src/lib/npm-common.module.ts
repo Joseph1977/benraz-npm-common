@@ -28,7 +28,10 @@ import { ConfirmationService } from './confirmation/confirmation.service';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SmartFilterComponent } from './smart-filter/smart-filter.component';
 import { LoaderComponent } from './loader/loader.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { ContactUsWidgetComponent } from './contact-us-widget/contact-us-widget.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatOptionModule } from '@angular/material/core';
 
 export class BenrazNgxCommonModuleConfig {
   apiBaseUrl: string | undefined;
@@ -54,7 +57,10 @@ export class BenrazNgxCommonModuleConfig {
     MatChipsModule,
     MatDatepickerModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatStepperModule,
+    MatOptionModule
   ],
   declarations: [
     ETOffsetPipe,
@@ -65,7 +71,8 @@ export class BenrazNgxCommonModuleConfig {
     ConfirmationComponent,
     SmartFilterComponent,
     LoaderComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    ContactUsWidgetComponent
   ],
   providers: [
     InternalUrlsService,
@@ -81,7 +88,8 @@ export class BenrazNgxCommonModuleConfig {
     NotificationDialogComponent,
     ConfirmationComponent,
     SmartFilterComponent,
-    LoaderComponent
+    LoaderComponent,
+    ContactUsWidgetComponent
   ]
 })
 export class BenrazNgxCommonModule {

@@ -1,0 +1,203 @@
+@if (!isOpen) {
+<button color="primary" class="contact-btn" [ngStyle]="{
+    'background-color': config.theme.buttonColor || '#007bff',
+    bottom: config.theme.buttonPosition?.includes('bottom') ? '20px' : 'auto',
+    right: config.theme.buttonPosition?.includes('right') ? '20px' : 'auto',
+    left: config.theme.buttonPosition?.includes('left') ? '20px' : 'auto',
+    display: isOpen ? 'none' : ''
+  }" (click)="toggleModal()">
+  @if (config.theme.buttonIcon) {
+  <div class="contact-btn-inner">
+    <mat-icon fontSet="material-symbols-outlined" [ngStyle]="{ color: config.theme.buttonColor }">{{
+      config.theme.buttonIcon }}</mat-icon>
+    <svg preserveAspectRatio="xMidYMid" viewBox="0 0 58 52" height="18px" width="22px" class="rectangle">
+      <path
+        d="M29.481017,9 L26.7193716,9.00780269 L25.0166328,9.03077059 C21.0467647,9.10067287 17.1033343,9.28474889 13.272705,9.58299863 C11.1559364,9.77777398 9.61646844,11.3359767 9.42403494,13.2837302 L9.35895495,13.9827722 C9.18193028,16.0645766 9.0669853,18.9848792 9,22.1934446 L9,29.8065554 L9.04251657,31.5660142 C9.1220023,34.4365801 9.24537246,36.9681814 9.42403494,38.7162698 C9.61646844,40.6640233 11.1559364,42.222226 13.272705,42.4170014 C17.1033343,42.7152511 21.0467647,42.8993271 25.0166328,42.9692294 L26.7193716,42.9921973 L29.5976553,43 L31.2426614,42.9926959 C35.7862719,42.9500888 40.3114659,42.7583568 44.6893281,42.4174999 C46.8060966,42.2227246 48.3455646,40.6645218 48.5379981,38.7167684 L48.6030781,38.0177264 C48.8197734,35.4693959 48.9434478,29.6646482 49,25.6127275 L48.962033,22.192946 L48.9195164,20.4334872 C48.8400307,17.5629214 48.7166605,15.0313201 48.5379981,13.2832316 C48.3455646,11.3354782 46.8060966,9.77727542 44.6893281,9.58250007 C40.8586987,9.28425033 36.9152683,9.10017431 32.9454002,9.03027203 L31.2426614,9.00730413 L29.481017,9 Z"
+        [ngStyle]="{ fill: config.theme.buttonColor }"></path>
+    </svg>
+  </div>
+  }
+</button>
+}
+<div class="contact-modal" [class.open]="isOpen" [ngStyle]="{
+    width: config.theme.modalWidth || '400px',
+    height: config.theme.modalHeight || '300px'
+  }" [ngClass]="[
+    config.theme.modalClass,
+    config.theme.buttonPosition === buttonPositions.BottomLeft ? 'left-panel' : ''
+  ]">
+  <div class="home" [ngClass]="{ hidden: selectedFormType || isSubmittedResponse.status }" [ngStyle]="{
+        backgroundColor: config.theme.bgColor
+      }">
+    <div class="home-header" [ngStyle]="{ backgroundColor: config.theme.header.headerBg }">
+      @if(!selectedFormType) { @if(config.theme.header.logoUrl) {
+      <img [src]="config.theme.header.logoUrl" class="logo-img" />
+      } @else { @if(config.theme.header.logoIcon) {
+      <mat-icon>{{ config.theme.header.logoIcon }}</mat-icon>
+      } @else {
+      <mat-icon [ngStyle]="{ color: config.theme.typesIconColor }">chat</mat-icon>
+      } } @if(config.theme.header.logoUrl){ }
+
+      <h3 [class]="config.theme.header.titleClass" class="title"
+        [ngStyle]="{ color: config.theme.header.headerTitleColor }">
+        {{ config.theme.headerTitle }}
+      </h3>
+      }
+    </div>
+    @if (!selectedFormType) {
+    <div class="type-selection">
+      <div class="list-type">
+        @for (f of activeForms; track f) {
+        <div (click)="selectFormType(f.type)" class="list-btn">
+          <div class="list-btn-info">
+            <mat-icon fontSet="material-symbols-outlined" [ngStyle]="{ color: config.theme.typesIconColor }">{{
+              f.matIcon }}</mat-icon>
+            <span>{{ f.title }}</span>
+          </div>
+          <div class="list-btn-icon" [ngStyle]="{ backgroundColor: config.theme.typesIconColor }">
+            <mat-icon fontSet="material-symbols-outlined">
+              arrow_right_alt
+            </mat-icon>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+
+  @if(selectedFormType || isSubmittedResponse.status) {
+  <div class="common-header">
+    <button mat-icon-button>
+      <mat-icon fontSet="material-symbols-outlined" (click)="onResetFormType()">home</mat-icon>
+    </button>
+  </div>
+  } @if(selectedFormType){
+  <form [formGroup]="form" class="form-wrapper" [ngStyle]="{
+        backgroundColor: config.theme.bgColor
+      }">
+    <mat-horizontal-stepper linear #stepper [ngStyle]="{
+        backgroundColor: config.theme.bgColor
+      }">
+      <!-- STEP 1 -->
+      <mat-step step [stepControl]="formStep1" [label]="''">
+        <form [formGroup]="formStep1">
+          @if (formStep1.get('subject')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">{{
+            config.labels?.subject || "Subject"
+            }}</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="subject" [matAutocomplete]="auto1"
+              [placeholder]="config.labels?.subject || 'Select subject or enter custom subject'" />
+            <mat-autocomplete #auto1="matAutocomplete" panelClass="my-select-panel-class">
+              @for (s of currentFormSubjects; track s) {
+              <mat-option [value]="s">{{ s }}</mat-option>
+              }
+            </mat-autocomplete>
+
+            @if (formStep1.get('subject')?.hasError('required')) {
+            <mat-error>Subject is required</mat-error>
+            }
+          </mat-form-field>
+          } @if (formStep1.get('name')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Full Name</mat-label>
+          <mat-form-field appearance="fill">
+            <input matInput type="text" formControlName="name" placeholder="Enter full name" />
+          </mat-form-field>
+          } @if (formStep1.get('email')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Email</mat-label>
+          <mat-form-field appearance="fill">
+            <input matInput type="email" formControlName="email" placeholder="Enter email" />
+          </mat-form-field>
+          } @if (formStep1.get('message')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Message</mat-label>
+          <mat-form-field appearance="fill">
+            <textarea matInput formControlName="message" rows="4" placeholder="Enter message"></textarea>
+          </mat-form-field>
+          }
+
+          <div class="step-actions">
+            <button mat-button matStepperNext class="secondary-btn next-btn" [ngClass]="config.theme.nextButtonClass">
+              Next
+              <mat-icon fontSet="material-symbols-outlined">arrow_forward</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 2 -->
+      <mat-step [stepControl]="formStep2" label="">
+        <form [formGroup]="formStep2">
+          @if (formStep2.get('subject')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">{{
+            config.labels?.subject || "Subject"
+            }}</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="subject" [matAutocomplete]="auto2"
+              [placeholder]="config.labels?.subject || 'Select subject or enter custom subject'" />
+            <mat-autocomplete #auto2="matAutocomplete" panelClass="my-select-panel-class">
+              @for (s of currentFormSubjects; track s) {
+              <mat-option [value]="s">{{ s }}</mat-option>
+              }
+            </mat-autocomplete>
+
+            @if (formStep2.get('subject')?.hasError('required')) {
+            <mat-error>Subject is required</mat-error>
+            }
+          </mat-form-field>
+          } @if (formStep2.get('name')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Full Name</mat-label>
+          <mat-form-field appearance="fill">
+            <input matInput type="text" formControlName="name" placeholder="Enter full name" />
+          </mat-form-field>
+          } @if (formStep2.get('email')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Email</mat-label>
+          <mat-form-field appearance="fill">
+            <input matInput type="email" formControlName="email" placeholder="Enter email" />
+          </mat-form-field>
+          } @if (formStep2.get('message')) {
+          <mat-label [ngStyle]="{ color: config.theme.labelColor }">Message</mat-label>
+          <mat-form-field appearance="fill">
+            <textarea matInput formControlName="message" rows="4" placeholder="Enter message"></textarea>
+          </mat-form-field>
+          }
+
+          <div class="step-actions">
+            <button mat-button matStepperPrevious class="secondary-btn" [ngClass]="config.theme.previousButtonClass">
+              Back
+              <mat-icon fontSet="material-symbols-outlined">arrow_backward</mat-icon>
+            </button>
+            <button mat-button class="primary-btn" [ngClass]="config.theme.nextButtonClass" type="submit"
+              (click)="submitForm()" [disabled]="submitting">
+              <span>{{ config.labels?.submit || "Submit" }}</span>
+              <mat-spinner *ngIf="submitting" diameter="20"
+                style="vertical-align: middle; margin-left: 8px;"></mat-spinner>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+  } @if(isSubmittedResponse.status) {
+  <div class="sent-screen" [ngStyle]="{
+        backgroundColor: config.theme.bgColor
+      }">
+    <div class="sent-screen-content">
+      <div class="check-icon">
+        <mat-icon fontSet="material-symbols-outlined">check</mat-icon>
+      </div>
+      <h4 [ngStyle]="{ color: config.theme.labelColor }">Message Sent!</h4>
+      <span [ngStyle]="{ color: config.theme.labelColor }">Stay tuned, we will send you a response to:</span>
+      <h4 [ngStyle]="{ color: config.theme.labelColor }">{{ config.email }}</h4>
+      <button mat-button class="primary-btn" (click)="onResetFormType()" [ngClass]="config.theme.nextButtonClass">
+        Done
+      </button>
+    </div>
+  </div>
+  }
+
+  <button mat-icon-button class="close-btn" (click)="toggleModal()">
+    <mat-icon fontSet="material-symbols-outlined"
+      [ngStyle]="{ color: config.theme.typesIconColor }">minimizes</mat-icon>
+  </button>
+</div>
