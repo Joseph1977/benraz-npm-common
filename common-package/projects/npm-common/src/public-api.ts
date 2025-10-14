@@ -25,3 +25,5 @@ export * from './lib/query/query-utils';
 export * from './lib/query/query.service';
 export * from './lib/integrations/google-maps/google-maps.service';
 export * from './lib/default-date-formats.model';
+export * from './lib/contact-us-widget/contact-us-widget.component';
+export * from './lib/contact-us-widget/contact-us-widget.config';
